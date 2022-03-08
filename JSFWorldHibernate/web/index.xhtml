@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Országok városai</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            Ország: <h:selectOneMenu value="#{varosok.kivalasztottOrszagCode}">
+                <f:selectItems value="#{varosok.orszagokLista}" itemLabel="#{cou.name}" itemValue="#{cou.code}" var="cou"/>
+            </h:selectOneMenu> <h:commandButton value="Kiválaszt" action="#{varosok.kivalaszt()}"/> <br/>
+            Kiválasztott ország kódja: #{varosok.kivalasztottOrszagCode} <h:commandButton value="Új város felvétele" action="#{varosok.ujVaros()}" rendered="#{varosok.kivalasztottOrszag != null}"/> <br/>
+            <h:dataTable value="#{varosok.varosokLista}" var="varos" rendered="#{varosok.kivalasztottOrszag != null}">
+                <h:column>
+                    <f:facet name="header">
+                        Név
+                    </f:facet>
+                    #{varos.name}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Megye
+                    </f:facet>
+                    #{varos.district}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Lakosság
+                    </f:facet>
+                    #{varos.population}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Módosítás
+                    </f:facet>
+                    <h:commandButton value="Szerkesztés" action="#{varosok.modosit(varos)}"/> <br/>
+                    <h:commandButton value="Törlés" action="#{varosok.torol(varos)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
